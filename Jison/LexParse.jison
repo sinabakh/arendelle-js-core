@@ -59,7 +59,7 @@ stmt
     ;
 
 expr
-    : cmd | space_decl | space | mel | loop
+    : cmd | space_decl | mel | loop
     ;
 
 loop
@@ -84,7 +84,7 @@ mel
 
 numman
     : numman TPLUS numman
-        {$$ = $1+$3;}
+        {$$ = $1+"+"+$3;}
     | numman TMINUS numman
         {$$ = $1-$3;}
     | numman TMUL numman
@@ -103,6 +103,7 @@ numman
     //    {$$ = -$2;}
     | TLPAREN numman TRPAREN
         {$$ = $2;}
+    | space
     | TNUMBER
         {$$ = Number(yytext);}
     ;
