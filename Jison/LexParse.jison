@@ -6,7 +6,7 @@
 %lex
 %%
 
-[a-zA-Z._]*[a-zA-Z]+     return 'TTEXT'
+
 [0-9]+("."[0-9]+)?\b     return 'TNUMBER'
 ","                      return 'TCOMMA'
 "*"                      return 'TMUL'
@@ -19,6 +19,7 @@
 "("                      return 'TLPAREN'
 ")"                      return 'TRPAREN'
 [p|r|d|l|u|n|c|i|w|e]+   return 'TCMD'
+[a-zA-Z._]*[a-zA-Z]+     return 'TTEXT'
 <<EOF>>                  return 'EOF'
 \s+                      /* skip whitespace */
 .                        return 'INVALID'
