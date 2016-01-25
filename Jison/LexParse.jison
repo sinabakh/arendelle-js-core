@@ -21,6 +21,7 @@
 "["                      return 'TLBRACK'
 "]"                      return 'TRBRACK'
 [p|r|d|l|u|n|c|i|w|e]+   return 'TCMD'
+[@]+[a-zA-Z._]*[a-zA-Z]+ return 'TSPACE'
 [a-zA-Z._]*[a-zA-Z]+     return 'TTEXT'
 <<EOF>>                  return 'EOF'
 \s+                      /* skip whitespace */
@@ -58,7 +59,7 @@ stmt
     ;
 
 expr
-    : cmd | space_decl | mel | loop
+    : cmd | space_decl | space | mel | loop
     ;
 
 loop
@@ -71,6 +72,10 @@ cmd
 
 space_decl
     : TLPAREN TTEXT TCOMMA mel TRPAREN {$$ = new Nodes.TSpaceDecl($2, $4);}
+    ;
+
+space
+    : TSPACE{$$ = new Nodes.TSpace($1);}
     ;
 
 mel
