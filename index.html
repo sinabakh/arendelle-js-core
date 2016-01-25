@@ -5,13 +5,24 @@
   <script src="Arendelle.js"></script>
   <script src="./Jison/LexParse.js"></script>
   <script type="text/javascript">
-    var AST = exec("(space,1)");
+  function compile()
+  {
+    var AST = exec(document.getElementById("sourceTextBox").value);
     var arendelle = {context:"main", nodeNo:1};
     var res = AST.exec(arendelle);
     console.log("And the compiled JS: ");
     console.log(res);
+    document.getElementById("jsSourceTextBox").value = res;
+  }
   </script>
 </head>
 <body>
+  <textarea id="sourceTextBox" rows="10" cols="50">
+  </textarea>
+  <input type="button" value="submit" onClick="javascript:compile();" />
+  <hr>
+  <textarea id="jsSourceTextBox" rows="10" cols="50">
+    Compiled Text
+  </textarea>
 </body>
 </html>
