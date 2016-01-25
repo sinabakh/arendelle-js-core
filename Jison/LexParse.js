@@ -84,7 +84,7 @@ performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* actio
 var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
-console.log("Hmmm!");
+return $$[$0-1];
 break;
 case 2:
  this.$ = new Nodes.NBlock(); this.$.statements.push($$[$0]); 

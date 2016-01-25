@@ -1,9 +1,7 @@
 
-//import parser = require('./Jison/LexParse');
+declare module LexParse{function parse(input)}
 
 function exec (input) {
-    return parse(input);
+    console.log("Executing Code...");
+    return LexParse.parse(input);
 }
-
-var AST = exec("r");
-console.log(AST.statements);

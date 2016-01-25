@@ -20,7 +20,7 @@
 %% /* language grammar */
 
 program
-    : stmts EOF{console.log("Hmmm!");}
+    : stmts EOF{return $1;}
     ;
 
 stmts

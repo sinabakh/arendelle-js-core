@@ -8,20 +8,25 @@ var Nodes;
     var Node = (function () {
         function Node() {
         }
-        Node.prototype.exec = function (arendelle) { };
+        Node.prototype.exec = function (arendelle) { return ""; };
         return Node;
     }());
     Nodes.Node = Node;
     var NBlock = (function (_super) {
         __extends(NBlock, _super);
         function NBlock() {
-            _super.apply(this, arguments);
+            this.statements = new Array;
+            _super.call(this);
         }
         NBlock.prototype.exec = function (arendelle) {
-            for (var stmt in this.statements) {
-                stmt.exec(arendelle);
+            var res;
+            res = "{\n";
+            for (var i in this.statements) {
+                res = res.concat(this.statements[i].exec(arendelle));
             }
+            res = res.concat("\n}");
             _super.prototype.exec.call(this, arendelle);
+            return res;
         };
         return NBlock;
     }(Node));

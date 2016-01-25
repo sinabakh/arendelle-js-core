@@ -12,8 +12,23 @@ var Nodes;
             _super.call(this);
         }
         NCommand.prototype.exec = function (arendelle) {
+            var res;
+            res = "";
             console.log("What I mean Is: " + this.command);
+            for (var it = 0; it < this.command.length; it++) {
+                var cmdJS;
+                switch (this.command[it]) {
+                    case "r":
+                        cmdJS = "goRight(); \n";
+                        break;
+                    case "l":
+                        cmdJS = "goLeft(); \n";
+                        break;
+                }
+                res = res.concat(cmdJS);
+            }
             _super.prototype.exec.call(this, arendelle);
+            return res;
         };
         return NCommand;
     }(Nodes.Node));

@@ -1,17 +1,21 @@
 module Nodes{
   export class Node{
-    exec(arendelle){}
+    exec(arendelle):string{return "";}
   }
 
   export class NBlock extends Node{
     statements : Array<Node>;
-
-    exec(arendelle){
-      for(var stmt in this.statements)
+    constructor(){this.statements = new Array;super();}
+    exec(arendelle):string{
+      var res:string;
+      res = "{\n";
+      for(var i in this.statements)
       {
-        stmt.exec(arendelle);
+        res = res.concat(this.statements[i].exec(arendelle));
       }
+      res = res.concat("\n}");
       super.exec(arendelle);
+      return res;
       }
   }
 
