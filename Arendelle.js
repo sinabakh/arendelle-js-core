@@ -46,23 +46,42 @@ var Nodes;
             _super.call(this);
         }
         NCommand.prototype.exec = function (arendelle) {
-            var res;
-            res = "";
-            console.log("What I mean Is: " + this.command);
+            //console.log("What I mean Is: " + this.command );
+            var cmdJS;
+            cmdJS = "";
             for (var it = 0; it < this.command.length; it++) {
-                var cmdJS;
                 switch (this.command[it]) {
                     case "r":
-                        cmdJS = "goRight();";
+                        cmdJS = cmdJS.concat("goRight(); \n");
                         break;
                     case "l":
-                        cmdJS = "goLeft();";
+                        cmdJS = cmdJS.concat("goLeft(); \n");
+                        break;
+                    case "d":
+                        cmdJS = cmdJS.concat("goDown(); \n");
+                        break;
+                    case "u":
+                        cmdJS = cmdJS.concat("goUp(); \n");
+                        break;
+                    case "p":
+                        cmdJS = cmdJS.concat("Paint(); \n");
+                        break;
+                    case "w":
+                        cmdJS = cmdJS.concat("Wait(); \n");
+                        break;
+                    case "c":
+                        cmdJS = cmdJS.concat("clearCurrentDot(); \n");
+                        break;
+                    case "n":
+                        cmdJS = cmdJS.concat("nextColor(); \n");
+                        break;
+                    case "e":
+                        cmdJS = cmdJS.concat("break; \n");
                         break;
                 }
-                res = res.concat(cmdJS);
             }
             _super.prototype.exec.call(this, arendelle);
-            return res;
+            return cmdJS;
         };
         return NCommand;
     })(Nodes.Node);
