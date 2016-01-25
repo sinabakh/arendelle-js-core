@@ -89,3 +89,22 @@ var Nodes;
 })(Nodes || (Nodes = {}));
 /// <reference path="./Base.ts"/>
 /// <reference path="./Command.ts"/>
+/// <reference path="./Base.ts"/>
+var Nodes;
+(function (Nodes) {
+    var TNumber = (function (_super) {
+        __extends(TNumber, _super);
+        function TNumber(val) {
+            this.value = Number(val);
+            _super.call(this);
+        }
+        TNumber.prototype.exec = function (arendelle) {
+            var res;
+            res = this.value.toString();
+            _super.prototype.exec.call(this, arendelle);
+            return res;
+        };
+        return TNumber;
+    })(Nodes.Node);
+    Nodes.TNumber = TNumber;
+})(Nodes || (Nodes = {}));
