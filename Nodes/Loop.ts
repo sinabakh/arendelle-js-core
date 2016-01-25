@@ -8,9 +8,9 @@ module Nodes{
       var res:string = "";
       var itVar:string = "";
       var valStr:string = this.times.exec(arendelle);
-      itVar = itVar.concat("loop_var_", arendelle.context, arendelle.nodeNo);
+      itVar = itVar.concat("_loop_var_", arendelle.context, "_", arendelle.nodeNo, "_");
       res = res.concat("for(var ", itVar, "=0; ");
-      res = res.concat(itVar, "<", valStr, ";", itVar, "+=1", ")" );
+      res = res.concat(itVar, "<", valStr, ";", itVar, "+=1", ")", "\n");
 
       var wtd:string = this.value.exec(arendelle);
 
