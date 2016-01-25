@@ -18,6 +18,8 @@
 "%"                      return 'TMOD'
 "("                      return 'TLPAREN'
 ")"                      return 'TRPAREN'
+"["                      return 'TLBRACK'
+"]"                      return 'TRBRACK'
 [p|r|d|l|u|n|c|i|w|e]+   return 'TCMD'
 [a-zA-Z._]*[a-zA-Z]+     return 'TTEXT'
 <<EOF>>                  return 'EOF'
@@ -56,7 +58,11 @@ stmt
     ;
 
 expr
-    : cmd | space_decl | mel
+    : cmd | space_decl | mel | loop
+    ;
+
+loop
+    : TLBRACK mel TCOMMA expr TRBRACK {$$ = new Nodes.TLoop($2, $4);}
     ;
 
 cmd
