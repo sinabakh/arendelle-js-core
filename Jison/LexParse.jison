@@ -88,9 +88,9 @@ numman
         }}
     | numman TMOD
         {$$ = $1/100;}
-    | '-' numman %prec UMINUS
-        {$$ = -$2;}
-    | '(' numman ')'
+    //| TMINUS numman %prec UMINUS
+    //    {$$ = -$2;}
+    | TLPAREN numman TRPAREN
         {$$ = $2;}
     | TNUMBER
         {$$ = Number(yytext);}
