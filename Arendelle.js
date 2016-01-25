@@ -108,3 +108,25 @@ var Nodes;
     })(Nodes.Node);
     Nodes.TNumber = TNumber;
 })(Nodes || (Nodes = {}));
+/// <reference path="./Base.ts"/>
+var Nodes;
+(function (Nodes) {
+    var TSpaceDecl = (function (_super) {
+        __extends(TSpaceDecl, _super);
+        function TSpaceDecl(id, val) {
+            this.name = id;
+            this.value = val;
+            _super.call(this);
+        }
+        TSpaceDecl.prototype.exec = function (arendelle) {
+            var res = "";
+            res = res.concat("var ", this.name, "_", arendelle.context, "=");
+            var rVal = this.value.exec(arendelle);
+            res = res.concat(rVal, ";", "\n");
+            _super.prototype.exec.call(this, arendelle);
+            return res;
+        };
+        return TSpaceDecl;
+    })(Nodes.Node);
+    Nodes.TSpaceDecl = TSpaceDecl;
+})(Nodes || (Nodes = {}));

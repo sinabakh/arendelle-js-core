@@ -6,8 +6,9 @@
 %lex
 %%
 
-[@]+[a-zA-Z._]*[a-zA-Z]+ return 'TSPACE'
+[a-zA-Z._]*[a-zA-Z]+     return 'TTEXT'
 [0-9]+("."[0-9]+)?\b     return 'TNUMBER'
+","                      return 'TCOMMA'
 "*"                      return 'TMUL'
 "/"                      return 'TDIV'
 "-"                      return 'TMINUS'
@@ -54,35 +55,41 @@ stmt
     ;
 
 expr
-    : cmd | space_decl | mel{$$ = new Nodes.TNumber($1);}
+    : cmd | space_decl | mel
     ;
 
 cmd
     : TCMD {console.log("I am command!"); $$ = new Nodes.NCommand($1);}
     ;
 
-//space_decl
+space_decl
+    : TLPAREN TTEXT TCOMMA mel TRPAREN {$$ = new Nodes.TSpaceDecl($2, $4);}
+    ;
 
 mel
-    : mel TPLUS mel
+    : numman{$$ = new Nodes.TNumber($1);}
+    ;
+
+numman
+    : numman TPLUS numman
         {$$ = $1+$3;}
-    | mel TMINUS mel
+    | numman TMINUS numman
         {$$ = $1-$3;}
-    | mel TMUL mel
+    | numman TMUL numman
         {$$ = $1*$3;}
-    | mel TDIV mel
+    | numman TDIV numman
         {$$ = $1/$3;}
-    | mel TPOW mel
+    | numman TPOW numman
         {$$ = Math.pow($1, $3);}
-    | mel TNOT
+    | numman TNOT
         {{
           $$ = (function fact (n) { return n==0 ? 1 : fact(n-1) * n })($1);
         }}
-    | mel TMOD
+    | numman TMOD
         {$$ = $1/100;}
-    | '-' mel %prec UMINUS
+    | '-' numman %prec UMINUS
         {$$ = -$2;}
-    | '(' mel ')'
+    | '(' numman ')'
         {$$ = $2;}
     | TNUMBER
         {$$ = Number(yytext);}
