@@ -1,11 +1,11 @@
 /// <reference path="./Base.ts"/>
 module Nodes{
   export class TNumber extends Node{
-    value:number;
-    constructor(val:string){this.value = Number(val); super();}
+    value:string;
+    constructor(val:string){this.value = val; super();}
     exec(arendelle):string{
       var res:string;
-      res = this.value.toString();
+      res = this.value;
       super.exec(arendelle);
       return res;
     }

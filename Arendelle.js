@@ -121,12 +121,12 @@ var Nodes;
     var TNumber = (function (_super) {
         __extends(TNumber, _super);
         function TNumber(val) {
-            this.value = Number(val);
+            this.value = val;
             _super.call(this);
         }
         TNumber.prototype.exec = function (arendelle) {
             var res;
-            res = this.value.toString();
+            res = this.value;
             _super.prototype.exec.call(this, arendelle);
             return res;
         };
