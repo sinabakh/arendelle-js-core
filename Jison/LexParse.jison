@@ -54,14 +54,14 @@ stmt
     ;
 
 expr
-    : cmd | space_decl
+    : cmd | space_decl | mel{$$ = new Nodes.TNumber($1);}
     ;
 
 cmd
     : TCMD {console.log("I am command!"); $$ = new Nodes.NCommand($1);}
     ;
 
-space_decl
+//space_decl
 
 mel
     : mel TPLUS mel
