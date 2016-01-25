@@ -23,4 +23,19 @@ var Nodes;
         return TSpaceDecl;
     }(Nodes.Node));
     Nodes.TSpaceDecl = TSpaceDecl;
+    var TSpace = (function (_super) {
+        __extends(TSpace, _super);
+        function TSpace(id) {
+            this.name = id.substring(1);
+            _super.call(this);
+        }
+        TSpace.prototype.exec = function (arendelle) {
+            var res = "";
+            res = res.concat(this.name, "_", arendelle.context);
+            _super.prototype.exec.call(this, arendelle);
+            return res;
+        };
+        return TSpace;
+    }(Nodes.Node));
+    Nodes.TSpace = TSpace;
 })(Nodes || (Nodes = {}));
