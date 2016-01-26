@@ -12,7 +12,7 @@ var Nodes;
     var Node = (function () {
         function Node() {
         }
-        Node.prototype.exec = function (arendelle) { return ""; };
+        Node.prototype.exec = function (arendelle) { arendelle.nodeNo += 1; return ""; };
         return Node;
     })();
     Nodes.Node = Node;
@@ -137,6 +137,53 @@ var Nodes;
 /// <reference path="./Base.ts"/>
 var Nodes;
 (function (Nodes) {
+    var TOperation = (function (_super) {
+        __extends(TOperation, _super);
+        function TOperation(lVal, rVal, operator) {
+            this.lVal = lVal;
+            this.rVal = rVal;
+            this.operator = operator;
+            _super.call(this);
+        }
+        TOperation.prototype.exec = function (arendelle) {
+            var res = "";
+            switch (this.operator) {
+                case "^":
+                    res = res.concat("Math.pow(", this.lVal.exec(arendelle), ",", this.rVal.exec(arendelle), ")");
+                    break;
+                default:
+                    res = res.concat(this.lVal.exec(arendelle), this.operator, this.rVal.exec(arendelle));
+                    break;
+            }
+            _super.prototype.exec.call(this, arendelle);
+            return res;
+        };
+        return TOperation;
+    })(Nodes.Node);
+    Nodes.TOperation = TOperation;
+})(Nodes || (Nodes = {}));
+/// <reference path="./Base.ts"/>
+var Nodes;
+(function (Nodes) {
+    var TRawJS = (function (_super) {
+        __extends(TRawJS, _super);
+        function TRawJS(val) {
+            this.value = val;
+            _super.call(this);
+        }
+        TRawJS.prototype.exec = function (arendelle) {
+            var res;
+            res = this.value;
+            _super.prototype.exec.call(this, arendelle);
+            return res;
+        };
+        return TRawJS;
+    })(Nodes.Node);
+    Nodes.TRawJS = TRawJS;
+})(Nodes || (Nodes = {}));
+/// <reference path="./Base.ts"/>
+var Nodes;
+(function (Nodes) {
     var TSpaceDecl = (function (_super) {
         __extends(TSpaceDecl, _super);
         function TSpaceDecl(id, val) {
@@ -147,8 +194,8 @@ var Nodes;
         TSpaceDecl.prototype.exec = function (arendelle) {
             var res = "";
             res = res.concat("var ", this.name, "_", arendelle.context, "=");
-            var rVal = this.value.exec(arendelle);
-            res = res.concat(rVal, ";", "\n");
+            var cVal = this.value.exec(arendelle);
+            res = res.concat(cVal, ";", "\n");
             _super.prototype.exec.call(this, arendelle);
             return res;
         };

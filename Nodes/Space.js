@@ -15,8 +15,8 @@ var Nodes;
         TSpaceDecl.prototype.exec = function (arendelle) {
             var res = "";
             res = res.concat("var ", this.name, "_", arendelle.context, "=");
-            var rVal = this.value.exec(arendelle);
-            res = res.concat(rVal, ";", "\n");
+            var cVal = this.value.exec(arendelle);
+            res = res.concat(cVal, ";", "\n");
             _super.prototype.exec.call(this, arendelle);
             return res;
         };

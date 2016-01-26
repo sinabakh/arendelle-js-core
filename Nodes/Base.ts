@@ -1,6 +1,6 @@
 module Nodes{
   export class Node{
-    exec(arendelle):string{return "";}
+    exec(arendelle):string{arendelle.nodeNo+=1;return "";}
   }
 
   export class NBlock extends Node{

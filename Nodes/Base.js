@@ -8,7 +8,7 @@ var Nodes;
     var Node = (function () {
         function Node() {
         }
-        Node.prototype.exec = function (arendelle) { return ""; };
+        Node.prototype.exec = function (arendelle) { arendelle.nodeNo += 1; return ""; };
         return Node;
     }());
     Nodes.Node = Node;

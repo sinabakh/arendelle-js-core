@@ -7,8 +7,8 @@ module Nodes{
     exec(arendelle):string{
       var res:string = "";
       res = res.concat("var ", this.name, "_", arendelle.context, "=");
-      var rVal:string = this.value.exec(arendelle);
-      res = res.concat(rVal, ";", "\n");
+      var cVal:string = this.value.exec(arendelle);
+      res = res.concat(cVal, ";", "\n");
       super.exec(arendelle);
       return res;
     }

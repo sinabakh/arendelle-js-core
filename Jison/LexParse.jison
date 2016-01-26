@@ -79,31 +79,31 @@ space
     ;
 
 mel
-    : numman{$$ = new Nodes.TNumber($1);}
+    : numman
     ;
 
 numman
     : numman TPLUS numman
-        {$$ = $1+"+"+$3;}
+        {$$ = new Nodes.TOperation($1,$3,$2);}
     | numman TMINUS numman
-        {$$ = $1-$3;}
+        {$$ = new Nodes.TOperation($1,$3,$2);}
     | numman TMUL numman
-        {$$ = $1*$3;}
+        {$$ = new Nodes.TOperation($1,$3,$2);}
     | numman TDIV numman
-        {$$ = $1/$3;}
+        {$$ = new Nodes.TOperation($1,$3,$2);}
     | numman TPOW numman
-        {$$ = Math.pow($1, $3);}
-    | numman TNOT
+        {$$ = new Nodes.TOperation($1,$3,$2);}
+    /*| numman TNOT
         {{
           $$ = (function fact (n) { return n==0 ? 1 : fact(n-1) * n })($1);
-        }}
-    | numman TMOD
-        {$$ = $1/100;}
+        }}*/
+    | numman TMOD numman
+        {$$ = new Nodes.TOperation($1,$3,$2);}
     //| TMINUS numman %prec UMINUS
     //    {$$ = -$2;}
     | TLPAREN numman TRPAREN
         {$$ = $2;}
     | space
     | TNUMBER
-        {$$ = Number(yytext);}
+        {$$ = new Nodes.TNumber(yytext);}
     ;
