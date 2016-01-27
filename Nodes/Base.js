@@ -20,11 +20,10 @@ var Nodes;
         }
         NBlock.prototype.exec = function (arendelle) {
             var res;
-            res = "{\n";
+            res = "";
             for (var i in this.statements) {
                 res = res.concat(this.statements[i].exec(arendelle));
             }
-            res = res.concat("\n}");
             _super.prototype.exec.call(this, arendelle);
             return res;
         };

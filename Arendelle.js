@@ -24,11 +24,11 @@ var Nodes;
         }
         NBlock.prototype.exec = function (arendelle) {
             var res;
-            res = "{\n";
+            res = "";
             for (var i in this.statements) {
                 res = res.concat(this.statements[i].exec(arendelle));
             }
-            res = res.concat("\n}");
+            //res = res.concat("\n}");
             _super.prototype.exec.call(this, arendelle);
             return res;
         };
@@ -65,6 +65,9 @@ var Nodes;
                         break;
                     case "p":
                         cmdJS = cmdJS.concat("Paint(); \n");
+                        break;
+                    case "i":
+                        cmdJS = cmdJS.concat("goToOrigin(); \n");
                         break;
                     case "w":
                         cmdJS = cmdJS.concat("Wait(); \n");

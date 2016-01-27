@@ -2,27 +2,47 @@
 <html>
  <meta charset="UTF-8">
 <head>
-  <script src="Arendelle.js"></script>
+  <script src="./jquery.js"></script>
+  <script src="./Arendelle.js"></script>
   <script src="./Jison/LexParse.js"></script>
-  <script type="text/javascript">
-  function compile()
-  {
-    var AST = exec(document.getElementById("sourceTextBox").value);
-    var arendelle = {context:"main", nodeNo:1};
-    var res = AST.exec(arendelle);
-    console.log("And the compiled JS: ");
-    console.log(res);
-    document.getElementById("jsSourceTextBox").value = res;
-  }
-  </script>
+  <script src="./RenderEngine/ocanvas.js"></script>
 </head>
 <body>
   <textarea id="sourceTextBox" rows="10" cols="50">
   </textarea>
   <input type="button" value="submit" onClick="javascript:compile();" />
-  <hr>
   <textarea id="jsSourceTextBox" rows="10" cols="100">
     Compiled Text
   </textarea>
+  <hr></hr>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script type="text/javascript">
+  var LTSCODE = "";
+  jQuery.get('./RenderEngine/reng.js', function(data, status) {
+      LTSCODE = data;
+   }, "text");
+
+  function compile()
+  {
+    var AST = exec(document.getElementById("sourceTextBox").value);
+    var arendelle = {context:"main", nodeNo:1};
+    var screen_width = 400;
+    var screen_height = 400;
+    var dot_size = 40;
+    var res = "";
+    res = res.concat('var canvas = oCanvas.create({canvas: "#canvas"});');
+    res = res.concat("var _d_x = 0;", "\n", "var _d_y = 0;", "\n", "var _d_op = 1;", "\n");
+    res = res.concat("var _max_x = ", screen_width/dot_size, ";\n");
+    res = res.concat("var _max_y = ", screen_height/dot_size, ";\n");
+    res = res.concat("var _dot_size = ", dot_size, ";\n");
+    res = res.concat(AST.exec(arendelle));
+    console.log("And the compiled JS: ");
+    console.log(res);
+    document.getElementById("jsSourceTextBox").value = res;
+    LTSCODE = LTSCODE.concat(res);
+    eval(LTSCODE);
+
+  }
+  </script>
 </body>
 </html>

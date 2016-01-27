@@ -26,6 +26,9 @@ module Nodes{
           case "p":
             cmdJS = cmdJS.concat("Paint(); \n");
             break;
+          case "i":
+            cmdJS = cmdJS.concat("goToOrigin(); \n");
+            break;
           case "w":
             cmdJS = cmdJS.concat("Wait(); \n");
             break;
