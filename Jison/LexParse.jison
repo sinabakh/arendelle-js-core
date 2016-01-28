@@ -63,7 +63,7 @@ expr
     ;
 
 loop
-    : TLBRACK mel TCOMMA expr TRBRACK {$$ = new Nodes.TLoop($2, $4);}
+    : TLBRACK mel TCOMMA stmts TRBRACK {$$ = new Nodes.TLoop($2, $4);}
     ;
 
 cmd
