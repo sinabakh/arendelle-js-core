@@ -5,19 +5,19 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Nodes;
 (function (Nodes) {
-    var TRawJS = (function (_super) {
-        __extends(TRawJS, _super);
-        function TRawJS(val) {
+    var NRawJS = (function (_super) {
+        __extends(NRawJS, _super);
+        function NRawJS(val) {
             this.value = val;
             _super.call(this);
         }
-        TRawJS.prototype.exec = function (arendelle) {
+        NRawJS.prototype.exec = function (arendelle) {
             var res;
             res = this.value;
             _super.prototype.exec.call(this, arendelle);
             return res;
         };
-        return TRawJS;
+        return NRawJS;
     }(Nodes.Node));
-    Nodes.TRawJS = TRawJS;
+    Nodes.NRawJS = NRawJS;
 })(Nodes || (Nodes = {}));

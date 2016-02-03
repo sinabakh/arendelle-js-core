@@ -5,19 +5,19 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Nodes;
 (function (Nodes) {
-    var TNumber = (function (_super) {
-        __extends(TNumber, _super);
-        function TNumber(val) {
+    var NNumber = (function (_super) {
+        __extends(NNumber, _super);
+        function NNumber(val) {
             this.value = val;
             _super.call(this);
         }
-        TNumber.prototype.exec = function (arendelle) {
+        NNumber.prototype.exec = function (arendelle) {
             var res;
             res = this.value;
             _super.prototype.exec.call(this, arendelle);
             return res;
         };
-        return TNumber;
+        return NNumber;
     }(Nodes.Node));
-    Nodes.TNumber = TNumber;
+    Nodes.NNumber = NNumber;
 })(Nodes || (Nodes = {}));

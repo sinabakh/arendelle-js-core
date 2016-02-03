@@ -15,6 +15,10 @@
 "+"                      return 'TPLUS'
 "^"                      return 'TPOW'
 "!"                      return 'TNOT'
+"<"                      return 'TCLT'
+"<="                     return 'TCLE'
+">"                      return 'TCGT'
+">="                     return 'TCGE'
 "%"                      return 'TMOD'
 "("                      return 'TLPAREN'
 ")"                      return 'TRPAREN'
@@ -34,6 +38,7 @@
 %left 'TPLUS' 'TMINUS'
 %left 'TMUL' 'TDIV'
 %left 'TPOW'
+%left 'TCLT' 'TCLE' 'TCGT' 'TCGE'
 %right 'TNOT'
 %right 'TMOD'
 %left UMINUS
@@ -63,7 +68,7 @@ expr
     ;
 
 loop
-    : TLBRACK mel TCOMMA stmts TRBRACK {$$ = new Nodes.TLoop($2, $4);}
+    : TLBRACK mel TCOMMA stmts TRBRACK {$$ = new Nodes.NLoop($2, $4);}
     ;
 
 cmd
@@ -71,11 +76,11 @@ cmd
     ;
 
 space_decl
-    : TLPAREN TTEXT TCOMMA mel TRPAREN {$$ = new Nodes.TSpaceDecl($2, $4);}
+    : TLPAREN TTEXT TCOMMA mel TRPAREN {$$ = new Nodes.NSpaceDecl($2, $4);}
     ;
 
 space
-    : TSPACE{$$ = new Nodes.TSpace($1);}
+    : TSPACE{$$ = new Nodes.NSpace($1);}
     ;
 
 mel
@@ -84,26 +89,34 @@ mel
 
 numman
     : numman TPLUS numman
-        {$$ = new Nodes.TOperation($1,$3,$2);}
+        {$$ = new Nodes.NOperation($1,$3,$2, "math");}
     | numman TMINUS numman
-        {$$ = new Nodes.TOperation($1,$3,$2);}
+        {$$ = new Nodes.NOperation($1,$3,$2, "math");}
     | numman TMUL numman
-        {$$ = new Nodes.TOperation($1,$3,$2);}
+        {$$ = new Nodes.NOperation($1,$3,$2, "math");}
     | numman TDIV numman
-        {$$ = new Nodes.TOperation($1,$3,$2);}
+        {$$ = new Nodes.NOperation($1,$3,$2, "math");}
     | numman TPOW numman
-        {$$ = new Nodes.TOperation($1,$3,$2);}
+        {$$ = new Nodes.NOperation($1,$3,$2, "math");}
     /*| numman TNOT
         {{
           $$ = (function fact (n) { return n==0 ? 1 : fact(n-1) * n })($1);
         }}*/
     | numman TMOD numman
-        {$$ = new Nodes.TOperation($1,$3,$2);}
+        {$$ = new Nodes.NOperation($1,$3,$2, "math");}
     //| TMINUS numman %prec UMINUS
     //    {$$ = -$2;}
+    | numman TCLT numman
+      {$$ = new Nodes.NOperation($1,$3,$2, "comp");}
+    | numman TCLE numman
+      {$$ = new Nodes.NOperation($1,$3,$2, "comp");}
+    | numman TCGT numman
+      {$$ = new Nodes.NOperation($1,$3,$2, "comp");}
+    | numman TCGE numman
+      {$$ = new Nodes.NOperation($1,$3,$2, "comp");}
     | TLPAREN numman TRPAREN
         {$$ = $2;}
     | space
     | TNUMBER
-        {$$ = new Nodes.TNumber(yytext);}
+        {$$ = new Nodes.NNumber(yytext);}
     ;

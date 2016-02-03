@@ -1,6 +1,6 @@
 /// <reference path="./Base.ts"/>
 module Nodes{
-  export class TRawJS extends Node{
+  export class NRawJS extends Node{
     value:string;
     constructor(val:string){this.value = val; super();}
     exec(arendelle):string{

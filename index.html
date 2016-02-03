@@ -26,8 +26,8 @@
   {
     var AST = exec(document.getElementById("sourceTextBox").value);
     var arendelle = {context:"main", nodeNo:1};
-    var screen_width = 400;
-    var screen_height = 400;
+    var screen_width = $("#canvas")[0].width;
+    var screen_height = $("#canvas")[0].height;
     var dot_size = 40;
     var res = "";
     res = res.concat('var canvas = oCanvas.create({canvas: "#canvas"});');

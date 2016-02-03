@@ -93,17 +93,26 @@ var Nodes;
 /// <reference path="./Base.ts"/>
 var Nodes;
 (function (Nodes) {
-    var TLoop = (function (_super) {
-        __extends(TLoop, _super);
-        function TLoop(times, val) {
+    var NLoop = (function (_super) {
+        __extends(NLoop, _super);
+        function NLoop(times, val) {
             this.times = times;
             this.value = val;
             _super.call(this);
         }
-        TLoop.prototype.exec = function (arendelle) {
+        NLoop.prototype.exec = function (arendelle) {
             var res = "";
             var itVar = "";
             var valStr = this.times.exec(arendelle);
+            if (this.times.hasOwnProperty("type")) {
+                if (this.times.type == "comp") {
+                    res = res.concat("while(", valStr, ")");
+                    var wtd = this.value.exec(arendelle);
+                    res = res.concat("{\n", wtd, "}");
+                    _super.prototype.exec.call(this, arendelle);
+                    return res;
+                }
+            }
             itVar = itVar.concat("_loop_var_", arendelle.context, "_", arendelle.nodeNo, "_");
             res = res.concat("for(var ", itVar, "=0; ");
             res = res.concat(itVar, "<", valStr, ";", itVar, "+=1", ")", "\n");
@@ -112,43 +121,44 @@ var Nodes;
             _super.prototype.exec.call(this, arendelle);
             return res;
         };
-        return TLoop;
+        return NLoop;
     })(Nodes.Node);
-    Nodes.TLoop = TLoop;
+    Nodes.NLoop = NLoop;
 })(Nodes || (Nodes = {}));
 /// <reference path="./Base.ts"/>
 /// <reference path="./Command.ts"/>
 /// <reference path="./Base.ts"/>
 var Nodes;
 (function (Nodes) {
-    var TNumber = (function (_super) {
-        __extends(TNumber, _super);
-        function TNumber(val) {
+    var NNumber = (function (_super) {
+        __extends(NNumber, _super);
+        function NNumber(val) {
             this.value = val;
             _super.call(this);
         }
-        TNumber.prototype.exec = function (arendelle) {
+        NNumber.prototype.exec = function (arendelle) {
             var res;
             res = this.value;
             _super.prototype.exec.call(this, arendelle);
             return res;
         };
-        return TNumber;
+        return NNumber;
     })(Nodes.Node);
-    Nodes.TNumber = TNumber;
+    Nodes.NNumber = NNumber;
 })(Nodes || (Nodes = {}));
 /// <reference path="./Base.ts"/>
 var Nodes;
 (function (Nodes) {
-    var TOperation = (function (_super) {
-        __extends(TOperation, _super);
-        function TOperation(lVal, rVal, operator) {
+    var NOperation = (function (_super) {
+        __extends(NOperation, _super);
+        function NOperation(lVal, rVal, operator, type) {
             this.lVal = lVal;
             this.rVal = rVal;
             this.operator = operator;
+            this.type = type;
             _super.call(this);
         }
-        TOperation.prototype.exec = function (arendelle) {
+        NOperation.prototype.exec = function (arendelle) {
             var res = "";
             switch (this.operator) {
                 case "^":
@@ -161,40 +171,40 @@ var Nodes;
             _super.prototype.exec.call(this, arendelle);
             return res;
         };
-        return TOperation;
+        return NOperation;
     })(Nodes.Node);
-    Nodes.TOperation = TOperation;
+    Nodes.NOperation = NOperation;
 })(Nodes || (Nodes = {}));
 /// <reference path="./Base.ts"/>
 var Nodes;
 (function (Nodes) {
-    var TRawJS = (function (_super) {
-        __extends(TRawJS, _super);
-        function TRawJS(val) {
+    var NRawJS = (function (_super) {
+        __extends(NRawJS, _super);
+        function NRawJS(val) {
             this.value = val;
             _super.call(this);
         }
-        TRawJS.prototype.exec = function (arendelle) {
+        NRawJS.prototype.exec = function (arendelle) {
             var res;
             res = this.value;
             _super.prototype.exec.call(this, arendelle);
             return res;
         };
-        return TRawJS;
+        return NRawJS;
     })(Nodes.Node);
-    Nodes.TRawJS = TRawJS;
+    Nodes.NRawJS = NRawJS;
 })(Nodes || (Nodes = {}));
 /// <reference path="./Base.ts"/>
 var Nodes;
 (function (Nodes) {
-    var TSpaceDecl = (function (_super) {
-        __extends(TSpaceDecl, _super);
-        function TSpaceDecl(id, val) {
+    var NSpaceDecl = (function (_super) {
+        __extends(NSpaceDecl, _super);
+        function NSpaceDecl(id, val) {
             this.name = id;
             this.value = val;
             _super.call(this);
         }
-        TSpaceDecl.prototype.exec = function (arendelle) {
+        NSpaceDecl.prototype.exec = function (arendelle) {
             var res = "";
             res = res.concat("var ", this.name, "_", arendelle.context, "=");
             var cVal = this.value.exec(arendelle);
@@ -202,22 +212,22 @@ var Nodes;
             _super.prototype.exec.call(this, arendelle);
             return res;
         };
-        return TSpaceDecl;
+        return NSpaceDecl;
     })(Nodes.Node);
-    Nodes.TSpaceDecl = TSpaceDecl;
-    var TSpace = (function (_super) {
-        __extends(TSpace, _super);
-        function TSpace(id) {
+    Nodes.NSpaceDecl = NSpaceDecl;
+    var NSpace = (function (_super) {
+        __extends(NSpace, _super);
+        function NSpace(id) {
             this.name = id.substring(1);
             _super.call(this);
         }
-        TSpace.prototype.exec = function (arendelle) {
+        NSpace.prototype.exec = function (arendelle) {
             var res = "";
             res = res.concat(this.name, "_", arendelle.context);
             _super.prototype.exec.call(this, arendelle);
             return res;
         };
-        return TSpace;
+        return NSpace;
     })(Nodes.Node);
-    Nodes.TSpace = TSpace;
+    Nodes.NSpace = NSpace;
 })(Nodes || (Nodes = {}));

@@ -5,14 +5,14 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Nodes;
 (function (Nodes) {
-    var TSpaceDecl = (function (_super) {
-        __extends(TSpaceDecl, _super);
-        function TSpaceDecl(id, val) {
+    var NSpaceDecl = (function (_super) {
+        __extends(NSpaceDecl, _super);
+        function NSpaceDecl(id, val) {
             this.name = id;
             this.value = val;
             _super.call(this);
         }
-        TSpaceDecl.prototype.exec = function (arendelle) {
+        NSpaceDecl.prototype.exec = function (arendelle) {
             var res = "";
             res = res.concat("var ", this.name, "_", arendelle.context, "=");
             var cVal = this.value.exec(arendelle);
@@ -20,22 +20,22 @@ var Nodes;
             _super.prototype.exec.call(this, arendelle);
             return res;
         };
-        return TSpaceDecl;
+        return NSpaceDecl;
     }(Nodes.Node));
-    Nodes.TSpaceDecl = TSpaceDecl;
-    var TSpace = (function (_super) {
-        __extends(TSpace, _super);
-        function TSpace(id) {
+    Nodes.NSpaceDecl = NSpaceDecl;
+    var NSpace = (function (_super) {
+        __extends(NSpace, _super);
+        function NSpace(id) {
             this.name = id.substring(1);
             _super.call(this);
         }
-        TSpace.prototype.exec = function (arendelle) {
+        NSpace.prototype.exec = function (arendelle) {
             var res = "";
             res = res.concat(this.name, "_", arendelle.context);
             _super.prototype.exec.call(this, arendelle);
             return res;
         };
-        return TSpace;
+        return NSpace;
     }(Nodes.Node));
-    Nodes.TSpace = TSpace;
+    Nodes.NSpace = NSpace;
 })(Nodes || (Nodes = {}));

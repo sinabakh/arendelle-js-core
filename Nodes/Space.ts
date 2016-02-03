@@ -1,6 +1,6 @@
 /// <reference path="./Base.ts"/>
 module Nodes{
-  export class TSpaceDecl extends Node{
+  export class NSpaceDecl extends Node{
     name:string;
     value:Node;
     constructor(id:string, val:Node){this.name = id; this.value=val; super();}
@@ -14,7 +14,7 @@ module Nodes{
     }
   }
 
-  export class TSpace extends Node{
+  export class NSpace extends Node{
     name:string;
     constructor(id:string){this.name = id.substring(1); super();}
     exec(arendelle):string{
