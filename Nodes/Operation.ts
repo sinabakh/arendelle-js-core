@@ -1,10 +1,11 @@
 /// <reference path="./Base.ts"/>
 module Nodes{
-  export class TOperation extends Node{
+  export class NOperation extends Node{
     lVal:Node;
     rVal:Node;
+    type:string;
     operator:string;
-    constructor(lVal:Node, rVal:Node, operator:string){this.lVal = lVal; this.rVal = rVal; this.operator = operator; super();}
+    constructor(lVal:Node, rVal:Node, operator:string, type:string){this.lVal = lVal; this.rVal = rVal; this.operator = operator; this.type=type; super();}
     exec(arendelle):string{
       var res:string="";
       switch(this.operator)

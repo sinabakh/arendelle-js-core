@@ -5,15 +5,16 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Nodes;
 (function (Nodes) {
-    var TOperation = (function (_super) {
-        __extends(TOperation, _super);
-        function TOperation(lVal, rVal, operator) {
+    var NOperation = (function (_super) {
+        __extends(NOperation, _super);
+        function NOperation(lVal, rVal, operator, type) {
             this.lVal = lVal;
             this.rVal = rVal;
             this.operator = operator;
+            this.type = type;
             _super.call(this);
         }
-        TOperation.prototype.exec = function (arendelle) {
+        NOperation.prototype.exec = function (arendelle) {
             var res = "";
             switch (this.operator) {
                 case "^":
@@ -26,7 +27,7 @@ var Nodes;
             _super.prototype.exec.call(this, arendelle);
             return res;
         };
-        return TOperation;
+        return NOperation;
     }(Nodes.Node));
-    Nodes.TOperation = TOperation;
+    Nodes.NOperation = NOperation;
 })(Nodes || (Nodes = {}));
