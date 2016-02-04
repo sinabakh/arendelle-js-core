@@ -35,6 +35,7 @@
     res = res.concat("var _max_x = ", screen_width/dot_size, ";\n");
     res = res.concat("var _max_y = ", screen_height/dot_size, ";\n");
     res = res.concat("var _dot_size = ", dot_size, ";\n");
+    res = res.concat("initCanvas();");
     res = res.concat(AST.exec(arendelle));
     console.log("And the compiled JS: ");
     console.log(res);

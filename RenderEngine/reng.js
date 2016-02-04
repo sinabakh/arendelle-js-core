@@ -1,3 +1,8 @@
+function initCanvas()
+{
+  canvas.clear(true);
+}
+
 function Paint()
 {
   var dotColor = "";
