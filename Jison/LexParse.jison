@@ -16,9 +16,9 @@
 "^"                      return 'TPOW'
 "!"                      return 'TNOT'
 "<"                      return 'TCLT'
-"<="                     return 'TCLE'
 ">"                      return 'TCGT'
-">="                     return 'TCGE'
+"="                      return 'TEQUAL'
+"=="                     return 'TCEQ'
 "%"                      return 'TMOD'
 "("                      return 'TLPAREN'
 ")"                      return 'TRPAREN'
@@ -105,22 +105,20 @@ numman
         {$$ = new Nodes.NOperation($1,$3,$2, "math");}
     | numman TPOW numman
         {$$ = new Nodes.NOperation($1,$3,$2, "math");}
-    /*| numman TNOT
-        {{
-          $$ = (function fact (n) { return n==0 ? 1 : fact(n-1) * n })($1);
-        }}*/
+    | numman TNOT TEQUAL numman
+        {$$ = new Nodes.NOperation($1,$4,"!=", "comp");}
     | numman TMOD numman
         {$$ = new Nodes.NOperation($1,$3,$2, "math");}
     //| TMINUS numman %prec UMINUS
     //    {$$ = -$2;}
     | numman TCLT numman
       {$$ = new Nodes.NOperation($1,$3,$2, "comp");}
-    | numman TCLE numman
-      {$$ = new Nodes.NOperation($1,$3,$2, "comp");}
+    | numman TCLT TEQUAL numman
+      {$$ = new Nodes.NOperation($1,$4,"<=", "comp");}
     | numman TCGT numman
       {$$ = new Nodes.NOperation($1,$3,$2, "comp");}
-    | numman TCGE numman
-      {$$ = new Nodes.NOperation($1,$3,$2, "comp");}
+    | numman TCGT TEQUAL numman
+      {$$ = new Nodes.NOperation($1,$4,">=", "comp");}
     | TLPAREN numman TRPAREN
         {$$ = $2;}
     | space
