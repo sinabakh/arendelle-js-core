@@ -22,6 +22,8 @@
 "%"                      return 'TMOD'
 "("                      return 'TLPAREN'
 ")"                      return 'TRPAREN'
+"{"                      return 'TLBRACE'
+"}"                      return 'TRBRACE'
 "["                      return 'TLBRACK'
 "]"                      return 'TRBRACK'
 [p|r|d|l|u|n|c|i|w|e]+   return 'TCMD'
@@ -64,11 +66,16 @@ stmt
     ;
 
 expr
-    : cmd | space_decl | mel | loop
+    : cmd | space_decl | mel | loop | condition
     ;
 
 loop
     : TLBRACK mel TCOMMA stmts TRBRACK {$$ = new Nodes.NLoop($2, $4);}
+    ;
+
+condition
+    : TLBRACE mel TCOMMA expr TRBRACE {$$ = new Nodes.NCondition($2, $4, null);}
+    | TLBRACE mel TCOMMA expr TCOMMA expr TRBRACE {$$ = new Nodes.NCondition($2, $4, $6);}
     ;
 
 cmd
