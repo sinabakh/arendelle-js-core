@@ -56,6 +56,7 @@
 
 program
     : stmts EOF{return $1;}
+    | EOF{return new Nodes.Node();}
     ;
 
 stmts
@@ -83,7 +84,7 @@ condition
     ;
 
 cmd
-    : TCMD {console.log("I am command!"); $$ = new Nodes.NCommand($1);}
+    : TCMD {$$ = new Nodes.NCommand($1);}
     ;
 
 space_decl
