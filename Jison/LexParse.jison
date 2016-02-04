@@ -37,10 +37,10 @@
 
 /* operator associations and precedence */
 
+%left 'TCLT' 'TCLE' 'TCGT' 'TCGE'
 %left 'TPLUS' 'TMINUS'
 %left 'TMUL' 'TDIV'
 %left 'TPOW'
-%left 'TCLT' 'TCLE' 'TCGT' 'TCGE'
 %right 'TNOT'
 %right 'TMOD'
 %left UMINUS
