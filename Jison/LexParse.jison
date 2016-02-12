@@ -11,6 +11,7 @@
 \/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*+\/   ;
 
 
+["#"][a-zA-Z._]*[a-zA-Z]+ return 'TSOURCE'
 [0-9]+("."[0-9]+)?\b     return 'TNUMBER'
 ","                      return 'TCOMMA'
 "*"                      return 'TMUL'
@@ -95,6 +96,10 @@ space
     : TSPACE{$$ = new Nodes.NSpace($1);}
     ;
 
+source
+    : TSOURCE{$$ = new Nodes.NSource($1);}
+    ;
+
 mel
     : numman
     ;
@@ -127,6 +132,7 @@ numman
     | TLPAREN numman TRPAREN
         {$$ = $2;}
     | space
+    | source
     | TNUMBER
         {$$ = new Nodes.NNumber(yytext);}
     ;
